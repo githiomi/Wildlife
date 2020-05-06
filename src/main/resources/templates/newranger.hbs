@@ -9,11 +9,11 @@
     {{#if rangers}}
         <hr>
         They are as follows:
-
+        {{#each rangers}}
         <ul>
-            <li style="margin:10px;"> {{rangers.name}} </li>
+            <li style="margin:10px;"> {{name}} </li>
         </ul>
-
+        {{/each}}
         <hr>
     {{else}}
         You don't have any active rangers

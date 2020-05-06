@@ -182,6 +182,7 @@ public class App {
 
         get("/rangers/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
             List<Ranger> allRangers = Ranger.all();
             int rangersNumber = Ranger.all().size();
 
@@ -191,13 +192,23 @@ public class App {
             return new ModelAndView(model, "newranger.hbs");
         }, new HandlebarsTemplateEngine());
 
+        get("/rangers/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params("id"));
+
+            Ranger retrieved = Ranger.find(id);
+
+            model.put("username", req.session().attribute("username"));
+            model.put("ranger", retrieved);
+            return new ModelAndView(model, "rangerdetails.hbs");
+        }, new HandlebarsTemplateEngine());
+
         get("/animals/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("id"));
 
             Animals retrieved = Animals.find(id);
-            int sighter = retrieved.getRangerId();
-            String ranger1 = Ranger.find(sighter).getName();
+            String ranger1 = Ranger.find(retrieved.getRangerId()).getName();
 
             model.put("sighter1", ranger1);
             model.put("username", req.session().attribute("username"));
@@ -205,7 +216,7 @@ public class App {
             return new ModelAndView(model, "animaldetails.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/eAnimals/:ie/", (req, res) -> {
+        get("/eAnimals/:ie", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params("ie"));
 
@@ -229,7 +240,7 @@ public class App {
 
             model.put("username", req.session().attribute("username"));
             model.put("animals", allAnimals);
-            res.redirect("/animals/" + id);
+            res.redirect("/animals");
             return null;
         }, new HandlebarsTemplateEngine());
 
@@ -238,11 +249,11 @@ public class App {
             List<EndangeredAnimals> allAnimals = EndangeredAnimals.getAll();
             int id = Integer.parseInt(req.params("id"));
 
-            EndangeredAnimals.deleteById(id);
+                EndangeredAnimals.deleteById(id);
 
             model.put("username", req.session().attribute("username"));
             model.put("animals", allAnimals);
-            res.redirect("/eAnimals/" + id);
+            res.redirect("/eAnimals");
             return null;
         }, new HandlebarsTemplateEngine());
     }
