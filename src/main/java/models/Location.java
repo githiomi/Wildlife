@@ -47,5 +47,15 @@ public class Location{
                     .executeAndFetch(Location.class);
         }
     }
+
+    public static Location find(int id){
+        String sql = "SELECT * FROM locations WHERE id =:id;";
+        try (Connection conn = DB.sql2o.open()){
+            Location location = conn.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Location.class);
+            return location;
+        }
+    }
 }
 

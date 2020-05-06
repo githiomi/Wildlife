@@ -27,6 +27,14 @@ public class LocationTest {
         assertTrue(4 == size);
     }
 
+    @Test
+    public void canUseTheFindMethod() {
+        Location location = Location.find(1);
+        Location location1 = Location.find(2);
+        assertEquals("Zone 1", location.getName());
+        assertEquals("Green Zone", location1.getName());
+    }
+
     @After
     public void tearDown() throws Exception {
 
