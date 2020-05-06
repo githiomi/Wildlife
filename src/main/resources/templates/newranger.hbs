@@ -10,9 +10,10 @@
         <hr>
         They are as follows:
 
-        <ol>
-            <li style="margin:10px;"> {{name}} </li>
-        </ol>
+        <ul>
+            <li style="margin:10px;"> {{rangers.name}} </li>
+        </ul>
+
         <hr>
     {{else}}
         You don't have any active rangers
@@ -22,22 +23,22 @@
 
         <div class="form-=group" style="margin:10px;">
             <label for="name"> Ranger Name: </label>
-            <input id="name" name="name" required>
+            <input id="name" name="name" required style="width:70%; margin:2px solid black; border-radius:10px; padding:10px; margin:20px">
         </div>
 
         <div class="form-group" style="margin:10px;">
             <label for="badgeNumber">Ranger BadgeNumber: </label>
-            <input id="badgeNumber" name="badgeNumber" required>
+            <input id="badgeNumber" name="badgeNumber" required style="width:70%; margin:2px solid black; border-radius:10px; padding:10px; margin:20px">
         </div>
 
         <div class="form-group"style="margin:10px;" >
             <label for="radioNumber"> Ranger RadioNumber: </label>
-            <input id="radioNumber" name="radioNumber" required>
+            <input id="radioNumber" name="radioNumber" required style="width:70%; margin:2px solid black; border-radius:10px; padding:10px; margin:20px">
         </div>
 
         <div class="form-group" style="margin:10px;" >
             <label for="rank"> Ranger Rank: </label>
-            <select id="rank" name="rank">
+            <select id="rank" name="rank" style="width:70%; margin:2px_solid_black; border-radius:10px; padding:10px; margin:20px">
                 <option value=""></option>
                 <option value="Lieutenant"> Lieutenant </option>
                 <option value="Colonel"> Colonel </option>

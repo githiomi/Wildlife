@@ -45,7 +45,8 @@ public class App {
 
         post("/homepage", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-
+            String enteredUsername = req.queryParams("username");
+            req.session().attribute("username", enteredUsername);
             List<Location> allLocations = Location.getAll();
             List<Ranger> allRangers = Ranger.all();
 
@@ -57,8 +58,6 @@ public class App {
 
         get("/homepage", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            String enteredUsername = req.queryParams("username");
-            req.session().attribute("username", enteredUsername);
             List<Location> allLocations = Location.getAll();
             List<Ranger> allRangers = Ranger.all();
 
@@ -149,5 +148,7 @@ public class App {
             model.put("username", req.session().attribute("username"));
             return new ModelAndView(model, "newranger.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get
     }
 }
