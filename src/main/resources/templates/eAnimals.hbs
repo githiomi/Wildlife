@@ -1,0 +1,38 @@
+{{#partial "pagename"}}
+    {{username}}, these are the animal sightings.
+{{/partial}}
+
+{{#partial "content"}}
+
+    <br><hr>
+    {{#if eAnimals}}
+        {{#each eAnimals}}
+            <ul>
+                <hr>
+                <li style="padding:8px;">{{species}}</li>
+                <ul style="margin:5px;">
+                    <li>Date sighted: {{lastseen}}</li>
+                    <br>
+                    <a href="/animals/{{id}}"><button class="btn btn-danger"> {{species}} details</button> </a>
+                </ul>
+                <hr>
+            </ul>
+        {{/each}}
+    {{else}}
+        <h4> <small> There are no endangered animals sighted yet. <br>
+            Be the first to record a sighting! </small> </h4>
+
+        <a href="/homepage"><button class="btn btn-default"> New sighting </button> </a>
+    {{/if}}
+    <br><hr>
+{{/partial}}
+
+{{#partial "buttons"}}
+    <form action="/animals/delete" method="post">
+        <button class="btn btn-danger" style="margin:20px;"> Delete All Sightings </button> </a>
+    </form>
+    <br>
+    <small> (This cannot be un-done) </small>
+{{/partial}}
+
+{{>layout.hbs}}

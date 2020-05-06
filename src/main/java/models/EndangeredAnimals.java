@@ -58,7 +58,7 @@ public class EndangeredAnimals extends Animals{
                 depleting();
             }
         };
-        this.timer.schedule(timerTask, 0, 500);
+        this.timer.schedule(timerTask, 30000, 500);
     }
 
     @Override
