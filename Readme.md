@@ -1,4 +1,4 @@
-#WILDLIFE TRACKER
+# WILDLIFE TRACKER
 
  This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
 
@@ -37,10 +37,10 @@ No bugs to report at the moment! the system works efficiently at 100% guaranteed
 
 ## Link to live page
 No live link available.
-However, the Repo link is: [Click-Here](https://github.com/githiomi/Wildlife_Tracker)
+However, the Repo link is: [Click-Here](https://github.com/githiomi/Wildlife)
 
 ## Setup Instructions
-* git clone [This](https://github.com/githiomi/Wildlife_Tracker) into your terminal.  
+* git clone [This](https://github.com/githiomi/Wildlife) into your terminal.  
 * Open the folder in your favourite editor, for example IntelliJ.
 * Set up your local database. (A database file has been created for you!)
 * run the 'App' in your browser using 'gradle run'.
