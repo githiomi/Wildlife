@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import models.Animals;
+import models.EndangeredAnimals;
 import models.Location;
 import models.Ranger;
 import org.sql2o.Sql2o;
@@ -149,6 +150,17 @@ public class App {
             return new ModelAndView(model, "newranger.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get
+        get("/animals/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params(":id"));
+
+            Animals retrieved = Animals.find(id);
+            EndangeredAnimals calledBack = EndangeredAnimals.find(id);
+
+            model.put("username", req.session().attribute("username"));
+            model.put("animal", retrieved);
+            model.put("endangered", calledBack);
+            return new ModelAndView(model, "animaldetails.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }
