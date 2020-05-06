@@ -1,3 +1,4 @@
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ public class App {
         get("/animals", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Animals> allAnimals = Animals.all();
+
 
             model.put("username", req.session().attribute("username"));
             model.put("animals", allAnimals);
