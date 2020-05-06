@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {{#block "title"}}WILDLIFE TRACKER{{/block}}
+    </title>
+
+    <link rel="icon" type="image/x-icon" href="images/icon.png">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+</head>
+<body>
+{{#block "nav-bar"}}
+<ul class="nav nav-tabs" style="font-family:Monospace">
+    <li role="presentation" class="active"><a href="/homepage">HOME</a></li>
+    <li role="presentation" class="active"><a href="/animals">ANIMALS</a></li>
+    <li role="tab" class="active"><a href="/rangers">RANGERS</a> </li>
+{{/block}}
+</ul>
+<div class="container">
+    <!--begin main template-->
+    <div class="page-header" style="text-align:center;">
+
+        <h1> WILDLIFE TRACKER </h1>
+        <img src="/images/zonesmap.png" width="50%" alt="https://images.unsplash.com/photo-1556732282-595ef530909c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80">
+    <h1> {{#block "pagename"}}Welcome, {{username}}! </h1><br>
+        <h1><small> Help us keep track of wildlife before our trees are cut </small></h1>{{/block}}
+    </div>
+
+    <div class="col-md-12">
+        {{#block "content"}}
+
+        {{/block}}
+
+    </div>
+</div>
+<!--end main template-->
+{{#block "footer"}}
+    <br><br><hr>
+    <footer class="footer">
+        <div class="container">
+            <hr>
+        </div>
+    </footer>
+{{/block}}
+
+{{#block "ending"}}
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </html>
+{{/block}}
