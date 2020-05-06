@@ -1,7 +1,26 @@
 {{#partial "pagename"}}
-    This is Ranger {{name}}'s page.
+    This is Ranger {{ranger.name}}'s page.
 {{/partial}}
 
 {{#partial "content"}}
-    <div style=""
+
+    <div style="width:150px; height:150px; border-radius:100%; background-color:teal">
+
+    </div>
+
+    <hr>
+    <ul>
+        <li> Ranger name: {{ranger.name}} </li>
+        <li> Ranger badge number: {{ranger.badgeNumber}} </li>
+        <li> Ranger radio number: {{ranger.radioNumber}} </li>
+        <li> Rank: {{ranger.rank}} </li>
+    </ul>
+
+    <small> {{ranger.name}} has a total of {{sightings}} sighting(s)! </small>
 {{/partial}}
+
+{{#partial "buttons"}}
+    <a href="/ranger/{{ranger.id}}/delete"> <button class="btn btn-danger"> Delete {{ranger.name}} </button> </a>
+{{/partial}}
+
+{{>layout.hbs}}

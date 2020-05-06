@@ -197,9 +197,11 @@ public class App {
             int id = Integer.parseInt(req.params("id"));
 
             Ranger retrieved = Ranger.find(id);
+            int sightings = retrieved.getAllAnimals().size();
 
             model.put("username", req.session().attribute("username"));
             model.put("ranger", retrieved);
+            model.put("sightings", sightings);
             return new ModelAndView(model, "rangerdetails.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -223,7 +225,7 @@ public class App {
             EndangeredAnimals calledBack = EndangeredAnimals.find(id);
             int sighted = calledBack.getRangerId();
             String ranger2 = Ranger.find(sighted).getName();
-            calledBack.healthDeplete();
+
 
             model.put("sighter2", ranger2);
             model.put("username", req.session().attribute("username"));
