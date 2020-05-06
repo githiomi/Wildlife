@@ -20,6 +20,20 @@ public class AnimalsTest {
         assertTrue( a1 instanceof Animals);
     }
 
+//    @Test
+//    public void returnsTrueIfAnimalsAreTheSame() {
+//        Animals a1 = a1();
+//        Animals a2 = a1();
+//        assertTrue(a1.equals(a2));
+//    }
+//
+//    @Test
+//    public void ensuresThatSavedIsTheSameAsLocal(){
+//        Animals a1 = a1();
+//            a1.save();
+//        assertTrue(Animals.find(a1.getId()).equals(a1));
+//    }
+
     @Test
     public void canCountAllAnimals(){
         Animals a1 = a1();
@@ -77,6 +91,44 @@ public class AnimalsTest {
         int length = Animals.all().size();
         assertEquals(0, length);
     }
+
+    @Test
+    public void checksIfAnimalIsAlive(){
+        Animals a1 = a1();
+            a1.save();
+        assertEquals(true, a1.isAlive());
+    }
+
+    @Test
+    public void theAgeOfTheAnimalIncreases() {
+        Animals a2 = a2();
+            a2().save();
+        int fAge = a2.getAge();
+            a2.aging();
+            try{
+                Thread.sleep(2000);
+            }catch (InterruptedException ex){
+
+            }
+        int lAge = a2.getAge();
+        assertTrue(lAge > fAge);
+    }
+
+    @Test
+    public void timerHaltsWhenAgeIsAtMax() {
+        Animals a1 = a1();
+            a1.save();
+        a1.startAging();
+        try{
+            Thread.sleep(2000);
+        }catch (InterruptedException ex){
+            System.out.println(ex);
+        }
+        assertFalse(a1.isAlive());
+        assertTrue( a1.getAge() == 10);
+    }
+
+
 
 //    Helper Classes
     public static Animals a1() {

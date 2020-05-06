@@ -4,10 +4,18 @@ import org.sql2o.*;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Animals {
 
+//    Timer
+    public Timer timer;
+
+//    Constants
     public static final String aType = "Not Endangered";
+    public static final int MAX_AGE = 10;
 
     public int id;
     public String species;
@@ -23,6 +31,7 @@ public class Animals {
         this.age = age;
         this.location = location;
         this.rangerId = rangerId;
+        this.timer = new Timer();
     }
 
      public int getId() {
@@ -57,6 +66,60 @@ public class Animals {
         return rangerId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animals animals = (Animals) o;
+        return
+                id == animals.id &&
+                age == animals.age &&
+                rangerId == animals.rangerId &&
+                timer.equals(animals.timer) &&
+                species.equals(animals.species) &&
+                type.equals(animals.type) &&
+                lastseen.equals(animals.lastseen) &&
+                location.equals(animals.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(timer, id, species, type, age, lastseen, location, rangerId);
+    }
+
+    //    Class Methods
+    public void aging() {
+        if ( this.age > MAX_AGE){
+            throw new UnsupportedOperationException("Cannot age any more!");
+        }
+        for (int i = this.getAge(); i < MAX_AGE; i += 1){
+            this.age += 1;
+        }
+    }
+
+    public boolean isAlive() {
+        if (this.getAge() >= 10){
+            return false;
+        }
+        return true;
+    }
+
+    public void startAging() {
+        Animals animal = this;
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if(!(isAlive())){
+                    cancel();
+                }
+                aging();
+            }
+        };
+        this.timer.schedule(timerTask, 1000, 500);
+    }
+
+
+//    Database Methods
     public void save(){
         String sql = "INSERT INTO animals (species, type, age, lastseen, location, rangerId) VALUES (:species, :type, :age, now(), :location, :rangerId);";
         try (Connection conn = DB.sql2o.open()){
@@ -81,7 +144,7 @@ public class Animals {
     }
 
     public static Animals find(int id) {
-        String sql = "SELECT * FROM animals WHERE id = :id;";
+        String sql = "SELECT * FROM animals WHERE id = :id AND type = 'Not Endangered';";
         try(Connection conn = DB.sql2o.open()) {
             Animals foundAnimal = conn.createQuery(sql)
                     .throwOnMappingFailure(false)
