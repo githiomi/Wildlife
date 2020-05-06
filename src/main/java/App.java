@@ -258,6 +258,36 @@ public class App {
             res.redirect("/eAnimals");
             return null;
         }, new HandlebarsTemplateEngine());
+
+        get("/rangers/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params("id"));
+
+            Ranger.deleteById(id);
+
+            List<Ranger> allRangers = Ranger.all();
+            int rangersNumber = Ranger.all().size();
+
+            model.put("username", req.session().attribute("username"));
+            model.put("rangersNumber", rangersNumber);
+            model.put("rangers", allRangers);
+            res.redirect("/rangers");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        get("/rangers/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            Ranger.deleteAll();
+
+            List<Ranger> allRangers = Ranger.all();
+            int rangersNumber = Ranger.all().size();
+
+            model.put("username", req.session().attribute("username"));
+            model.put("rangersNumber", rangersNumber);
+            model.put("rangers", allRangers);
+            return new ModelAndView(model, "rangers.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 
 }
