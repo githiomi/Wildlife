@@ -1,0 +1,42 @@
+{{#partial "pagename"}}
+    {{username}}, from here, you can keep track of the rangers
+{{/partial}}
+
+{{#partial "content"}}
+
+    <a href="/homepage"> <button class="btn btn-default"> Go back home</button> </a>
+
+    <br>
+
+    There are currently {{rangersNumber}} ranger(s) on duty.
+
+    {{#if rangers}}
+        {{#each rangers}}
+            <ol>
+                <hr>
+                <li>Ranger name: {{name}} </li>
+                    <ul>
+                        <li style="list-styling:none;">
+                            <a href="/rangers/{{id}}"> <small> View {{name}} details </small> </a>
+                        </li>
+                    </ul>
+                <hr>
+            </ol>
+        {{/each}}
+
+    {{else}}
+        <h3> <small>
+            There are currently no rangers on duty. <br>
+            <a href="/rangers/new"> <button class="btn btn-default"> Add Ranger </button> </a>
+        </small></h3>
+    {{/if}}
+
+{{/partial}}
+
+{{#partial "buttons"}}
+    <form action="/rangers/delete" method="post">
+        <button style="margin:20px;" class="btn btn-danger"> Delete all rangers </button>
+    </form>
+{{/partial}}
+
+{{>layout.hbs}}

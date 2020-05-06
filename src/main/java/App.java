@@ -29,7 +29,33 @@ public class App {
             return new ModelAndView(model, "login.hbs");
         }, new HandlebarsTemplateEngine());
 
+        post("/rangers/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Ranger> allRangers = Ranger.all();
+            int rangersNumber = Ranger.all().size();
+
+            Ranger.deleteAll();
+
+            model.put("username", req.session().attribute("username"));
+            model.put("rangersNumber", rangersNumber);
+            model.put("rangers", allRangers);
+            res.redirect("/rangers");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
         post("/homepage", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            List<Location> allLocations = Location.getAll();
+            List<Ranger> allRangers = Ranger.all();
+
+            model.put("rangers", allRangers);
+            model.put("locations", allLocations);
+            model.put("username", req.session().attribute("username"));
+            return new ModelAndView(model, "homepage.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/homepage", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String enteredUsername = req.queryParams("username");
             req.session().attribute("username", enteredUsername);
@@ -40,6 +66,18 @@ public class App {
             model.put("locations", allLocations);
             model.put("username", req.session().attribute("username"));
             return new ModelAndView(model, "homepage.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/animals/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Animals> allAnimals = Animals.all();
+
+            Animals.deleteAll();
+
+            model.put("username", req.session().attribute("username"));
+            model.put("animals", allAnimals);
+            res.redirect("/homepage");
+            return null;
         }, new HandlebarsTemplateEngine());
 
         get("/animals", (req, res) -> {
@@ -67,6 +105,49 @@ public class App {
             model.put("animals", allAnimals);
             model.put("username", req.session().attribute("username"));
             return new ModelAndView(model, "animals.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/rangers", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Ranger> allRangers = Ranger.all();
+            int rangersNumber = Ranger.all().size();
+
+
+            model.put("username", req.session().attribute("username"));
+            model.put("rangersNumber", rangersNumber);
+            model.put("rangers", allRangers);
+            return new ModelAndView(model, "rangers.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/rangers", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+                String name = req.queryParams("name");
+                int badgeNumber = Integer.parseInt(req.queryParams("badgeNumber"));
+                int radioNumber = Integer.parseInt(req.queryParams("radioNumber"));
+                String rank = req.queryParams("rank");
+
+                Ranger newRanger = new Ranger(name, badgeNumber, radioNumber, rank);
+                    newRanger.save();
+                List<Ranger> allRangers = Ranger.all();
+
+            int rangersNumber = Ranger.all().size();
+
+            model.put("rangersNumber", rangersNumber);
+            model.put("rangers", allRangers);
+            model.put("username", req.session().attribute("username"));
+            res.redirect("/rangers");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        get("/rangers/new", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Ranger> allRangers = Ranger.all();
+            int rangersNumber = Ranger.all().size();
+
+            model.put("rangersNumber", rangersNumber);
+            model.put("rangers", allRangers);
+            model.put("username", req.session().attribute("username"));
+            return new ModelAndView(model, "newranger.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }

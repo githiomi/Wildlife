@@ -1,0 +1,55 @@
+{{#partial "pagename"}}
+    {{username}}, here you are free to add a new ranger.
+{{/partial}}
+
+{{#partial "content"}}
+
+    There are currently {{rangersNumber}} ranger(s) active.
+    <br>
+    {{#if rangers}}
+        <hr>
+        They are as follows:
+
+        <ol>
+            <li style="margin:10px;"> {{name}} </li>
+        </ol>
+        <hr>
+    {{else}}
+        You don't have any active rangers
+    {{/if}}
+
+    <form action="/rangers" method="post">
+
+        <div class="form-=group" style="margin:10px;">
+            <label for="name"> Ranger Name: </label>
+            <input id="name" name="name" required>
+        </div>
+
+        <div class="form-group" style="margin:10px;">
+            <label for="badgeNumber">Ranger BadgeNumber: </label>
+            <input id="badgeNumber" name="badgeNumber" required>
+        </div>
+
+        <div class="form-group"style="margin:10px;" >
+            <label for="radioNumber"> Ranger RadioNumber: </label>
+            <input id="radioNumber" name="radioNumber" required>
+        </div>
+
+        <div class="form-group" style="margin:10px;" >
+            <label for="rank"> Ranger Rank: </label>
+            <select id="rank" name="rank">
+                <option value=""></option>
+                <option value="Lieutenant"> Lieutenant </option>
+                <option value="Colonel"> Colonel </option>
+                <option value="Captain"> Captain </option>
+                <option value="General"> General </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-default"> Add Ranger </button>
+    </form>
+
+
+{{/partial}}
+
+{{>layout.hbs}}

@@ -93,6 +93,23 @@ public class Ranger {
         }
     }
 
+    public static void deleteById(int id){
+        String sql = "DELETE FROM rangers WHERE id = :id;";
+        try (Connection conn = DB.sql2o.open()){
+            conn.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }
+    }
+
+    public static void deleteAll() {
+        String sql = "DELETE FROM rangers *;";
+        try (Connection conn = DB.sql2o.open()){
+            conn.createQuery(sql)
+                    .executeUpdate();
+        }
+    }
+
     public List<Object> getAllAnimals() {
         List<Object> allAnimals = new ArrayList<>();
 
