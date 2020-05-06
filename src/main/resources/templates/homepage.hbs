@@ -1,0 +1,122 @@
+{{#partial "pagename"}}
+    {{username}}, here you can enter any new animal sightings
+{{/partial}}
+
+{{#partial "content"}}
+    <small style="padding:8px; border-bottom:2px solid teal"> Add an animal below: </small>
+
+    <br><hr>
+        <form action="/animals" method="post">
+
+            <div class="form-group">
+                <label for="species"> Animal Species: </label>
+                <select id="species" name="species" required>
+                    <option value=""></option>
+                    <option value="Lion">Lion</option>
+                    <option value="Gazelle">Gazelle</option>
+                    <option value="Zebra">Zebra</option>
+                    <option value="Giraffe">Giraffe</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age"> Age: </label>
+                <input id="age" name="age" required placeholder="Between 1 - 10">
+            </div>
+
+            <div class="form-group">
+                <label for="location"> Sighting location: </label>
+                <select id="location" name="location">
+                    {{#if locations}}
+                        {{#each locations}}
+                            <option value="{{name}}">{{name}}, <small>{{area}}</small></option>
+                        {{/each}}
+                    {{/if}}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="rangerId"> Ranger Id: </label>
+                <select id="rangerId" name="rangerId">
+                    {{#if rangers}}
+                        {{#each rangers}}
+                            <option value=""></option>
+                            <option value="{{id}}">{{name}}, <small>{{rank}}</small></option>
+                        {{/each}}
+                    {{else}}
+                        <small>No rangers available.</small>
+                        <a href="rangers/new">Add a new ranger...</a>
+                    {{/if}}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-default">Save Sighting</button>
+        </form>
+    <br><hr>
+
+    <small style="padding:8px; border-bottom:2px solid teal"> Add an endangered animal below: </small>
+
+    <br><hr>
+    <form action="/animals" method="post">
+
+        <div class="form-group">
+            <label for="species"> Animal Species: </label>
+            <select id="species" name="species" required>
+                <option value=""></option>
+                <option value="Rhino">Rhino</option>
+                <option value="Elephant">Elephant</option>
+                <option value="Tiger">Tiger</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="health"> Animal Health: </label>
+            <select id="health" name="health" required>
+                <option value=""></option>
+                <option value="1">Very Ill</option>
+                <option value="3">Ill</option>
+                <option value="5">Okay</option>
+                <option value="7">Fine</option>
+                <option value="9">Healthy</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="age"> Age: </label>
+            <input id="age" name="age" required placeholder="Between 1 - 10">
+        </div>
+
+        <div class="form-group">
+            <label for="location"> Sighting location: </label>
+            <select id="location" name="location">
+                {{#if locations}}
+                    {{#each locations}}
+                        <option value=""></option>
+                        <option value="{{name}}">{{name}}, <small>{{area}}</small></option>
+                    {{/each}}
+                {{/if}}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="rangerId"> Ranger Id: </label>
+            <select id="rangerId" name="rangerId">
+                {{#if rangers}}
+                    {{#each rangers}}
+                        <option value="{{id}}">{{name}}, <small>{{rank}}</small></option>
+                    {{/each}}
+                {{else}}
+                    <small>No rangers available.</small>
+                    <a href="rangers/new">Add a new ranger...</a>
+                {{/if}}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-default">Save Sighting</button>
+    </form>
+
+
+{{/partial}}
+
+
+{{> layout.hbs}}

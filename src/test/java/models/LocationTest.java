@@ -1,7 +1,6 @@
 package models;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.sql2o.*;
 
@@ -9,10 +8,8 @@ import static org.junit.Assert.*;
 
 public class LocationTest {
 
-    @Before
-    public void setUp() throws Exception {
-        DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/wildlife_tests", "dhosio", "MaFaD@niel2019");
-    }
+    @Rule
+    public DatabaseRule database = new DatabaseRule();
 
     @Test
     public void canGetASpecificLocation() {
@@ -33,10 +30,5 @@ public class LocationTest {
         Location location1 = Location.find(2);
         assertEquals("Zone 1", location.getName());
         assertEquals("Green Zone", location1.getName());
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
     }
 }
