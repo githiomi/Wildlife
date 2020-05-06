@@ -1,5 +1,5 @@
 {{#partial "pagename"}}
-    {{username}}, these are the animal sightings.
+    {{username}}, these are the endangered animal sightings.
 {{/partial}}
 
 {{#partial "content"}}
@@ -13,7 +13,7 @@
                 <ul style="margin:5px;">
                     <li>Date sighted: {{lastseen}}</li>
                     <br>
-                    <a href="/animals/{{id}}"><button class="btn btn-danger"> {{species}} details</button> </a>
+                    <a href="/eAnimals/{{id}}"><button class="btn btn-danger"> {{species}} details</button> </a>
                 </ul>
                 <hr>
             </ul>
@@ -28,7 +28,7 @@
 {{/partial}}
 
 {{#partial "buttons"}}
-    <form action="/animals/delete" method="post">
+    <form action="/eAnimals/delete" method="post">
         <button class="btn btn-danger" style="margin:20px;"> Delete All Sightings </button> </a>
     </form>
     <br>

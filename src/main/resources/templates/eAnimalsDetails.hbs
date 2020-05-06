@@ -1,0 +1,36 @@
+{{#partial "pagename"}}
+
+        This is the {{species}}'s sightings details.
+
+{{/partial}}
+
+{{#partial "content"}}
+
+    <hr>
+    <div style="width:150px; height:150px; border-radius:100%; background-color:black">
+
+    </div>
+    <hr>
+
+<h4> Animal species: {{endangered.species}} </h4>
+<ul>
+    <li>Time of sighting: {{endangered.lastseen}} </li>
+    <li>Animal type: {{endangered.type}} </li>
+    <li>Animal health: {{endangered.health}} </li>
+    <li>Animal age: {{endangered.age}} </li>
+    <li>Sighted by: {{sighter2}} </li>
+</ul>
+
+<br>
+
+It was sighted in the following area: {{endangered.location}}
+
+{{/partial}}
+
+{{#partial "buttons"}}
+
+    <a href="/eAnimals/{{endangered.id}}/delete"> <button type="submit" class="btn btn-danger"> Delete {{endangered.species}} </button> </a>
+
+{{/partial}}
+
+{{>layout.hbs}}

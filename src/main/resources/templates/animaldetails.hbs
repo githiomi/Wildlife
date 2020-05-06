@@ -1,9 +1,5 @@
 {{#partial "pagename"}}
-    {{#if animal}}
-        This is the {{species}}'s sightings details.
-    {{else}}
-        This is the {{species}}'s sightings details.
-    {{/if}}
+        This is the {{animal.species}}'s sightings details.
 {{/partial}}
 
 {{#partial "content"}}
@@ -13,7 +9,6 @@
 
         </div>
     <hr>
-        {{#if animal}}
 
             <h4> Animal species: {{animal.species}} </h4>
             <ul>
@@ -27,36 +22,13 @@
 
             It was sighted in the following area: {{animal.location}}
 
-        {{else}}
-
-            <h4> Animal species: {{endangered.species}} </h4>
-            <ul>
-                <li>Time of sighting: {{endangered.lastseen}} </li>
-                <li>Animal type: {{endangered.type}} </li>
-                <li>Animal health: {{endangered.health}} </li>
-                <li>Animal age: {{endangered.age}} </li>
-                <li>Sighted by: {{sighter2}} </li>
-            </ul>
-
-            <br>
-
-            It was sighted in the following area: {{endangered.location}}
-
-        {{/if}}
 
 {{/partial}}
 
 {{#partial "buttons"}}
-    {{#if animal}}
-    <form action="/animals/{{id}}/delete" method="post">
-        <button type="submit" class="btn btn-danger"> Delete {{species}} </button>
-    </form>
 
-    {{else}}
-        <form action="/animals/{{id}}/delete" method="post">
-            <button type="submit" class="btn btn-danger"> Delete {{species}} </button>
-        </form>
-    {{/if}}
+    <a href="/animals/{{animal.id}}/delete"> <button type="submit" class="btn btn-danger"> Delete {{animal.species}} </button> </a>
+
 {{/partial}}
 
 {{>layout.hbs}}

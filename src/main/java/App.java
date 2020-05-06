@@ -80,6 +80,18 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
+        post("/eAnimals/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<EndangeredAnimals> allAnimals = EndangeredAnimals.getAll();
+
+            EndangeredAnimals.deleteAll();
+
+            model.put("username", req.session().attribute("username"));
+            model.put("animals", allAnimals);
+            res.redirect("/homepage");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
         get("/animals", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Animals> allAnimals = Animals.all();
@@ -89,6 +101,15 @@ public class App {
             model.put("animals", allAnimals);
             model.put("eAnimals", eAnimals);
             return new ModelAndView(model, "animals.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/eAnimals", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<EndangeredAnimals> eAnimals = EndangeredAnimals.getAll();
+
+            model.put("username", req.session().attribute("username"));
+            model.put("eAnimals", eAnimals);
+            return new ModelAndView(model, "eAnimals.hbs");
         }, new HandlebarsTemplateEngine());
 
         post("/animals", (req, res) -> {
@@ -178,31 +199,50 @@ public class App {
             int sighter = retrieved.getRangerId();
             String ranger1 = Ranger.find(sighter).getName();
 
-//
-//            EndangeredAnimals calledBack = EndangeredAnimals.find(id);
-//            int sighted = calledBack.getId();
-//            String ranger2 = Ranger.find(sighted).getName();
-//            calledBack.healthDeplete();
-
             model.put("sighter1", ranger1);
-//            model.put("sighter2", ranger2);
             model.put("username", req.session().attribute("username"));
             model.put("animal", retrieved);
-//            model.put("endangered", calledBack);
             return new ModelAndView(model, "animaldetails.hbs");
         }, new HandlebarsTemplateEngine());
 
-        post("/animals/:id/delete", (req, res) -> {
+        get("/eAnimals/:ie/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params("ie"));
+
+            EndangeredAnimals calledBack = EndangeredAnimals.find(id);
+            int sighted = calledBack.getRangerId();
+            String ranger2 = Ranger.find(sighted).getName();
+            calledBack.healthDeplete();
+
+            model.put("sighter2", ranger2);
+            model.put("username", req.session().attribute("username"));
+            model.put("endangered", calledBack);
+            return new ModelAndView(model, "eAnimalsDetails.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/animals/:id/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Animals> allAnimals = Animals.all();
-            int id = Integer.parseInt(req.params(":id"));
+            int id = Integer.parseInt(req.params("id"));
 
                 Animals.deleteById(id);
-                EndangeredAnimals.deleteById(id);
 
             model.put("username", req.session().attribute("username"));
             model.put("animals", allAnimals);
-            res.redirect("/animals");
+            res.redirect("/animals/" + id);
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        get("/eAnimals/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<EndangeredAnimals> allAnimals = EndangeredAnimals.getAll();
+            int id = Integer.parseInt(req.params("id"));
+
+            EndangeredAnimals.deleteById(id);
+
+            model.put("username", req.session().attribute("username"));
+            model.put("animals", allAnimals);
+            res.redirect("/eAnimals/" + id);
             return null;
         }, new HandlebarsTemplateEngine());
     }
