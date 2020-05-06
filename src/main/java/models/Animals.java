@@ -71,8 +71,7 @@ public class Animals {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animals animals = (Animals) o;
-        return
-                id == animals.id &&
+        return  id == animals.id &&
                 age == animals.age &&
                 rangerId == animals.rangerId &&
                 timer.equals(animals.timer) &&

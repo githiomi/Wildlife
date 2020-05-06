@@ -14,19 +14,6 @@ public class AnimalsTest {
     @Rule
     public DatabaseRule database = new DatabaseRule();
 
-    @Test
-    public void canCreateAnInstanceOfAnimals() {
-        Animals a1 = a1();
-        assertTrue( a1 instanceof Animals);
-    }
-
-//    @Test
-//    public void returnsTrueIfAnimalsAreTheSame() {
-//        Animals a1 = a1();
-//        Animals a2 = a1();
-//        assertTrue(a1.equals(a2));
-//    }
-//
 //    @Test
 //    public void ensuresThatSavedIsTheSameAsLocal(){
 //        Animals a1 = a1();

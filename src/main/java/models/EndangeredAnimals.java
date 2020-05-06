@@ -3,12 +3,13 @@ package models;
 import org.sql2o.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.TimerTask;
 
 public class EndangeredAnimals extends Animals{
 
     public int health;
-    public static final String eType = "Not Endangered";
+    public static final String eType = "Endangered";
     public static final int MIN_HEALTH = 0;
 
     public EndangeredAnimals(String species, int health, int age, String location, int rangerId) {
@@ -21,13 +22,29 @@ public class EndangeredAnimals extends Animals{
         return health;
     }
 
-//    Class Methods
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        EndangeredAnimals that = (EndangeredAnimals) o;
+        return health == that.health;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), health);
+    }
+
+    //    Class Methods
     public void depleting() {
-        if (isAlive()) {
+        if (this.getHealth() == MIN_HEALTH) {
+            throw new UnsupportedOperationException("The endangered animal is dead!");
+            }
+
             for (int i = this.getHealth(); i > MIN_HEALTH; i -= 1) {
                 health -= 1;
             }
-        }
     }
 
     public void healthDeplete() {
@@ -73,10 +90,9 @@ public class EndangeredAnimals extends Animals{
 
 //    @Override
     public static List<EndangeredAnimals> getAll() {
-        String sql = "SELECT * FROM animals WHERE type = 'Endangered';";
+        String sql = "SELECT * FROM animals WHERE type='Endangered';";
         try (Connection conn = DB.sql2o.open()){
             return conn.createQuery(sql)
-                    .throwOnMappingFailure(false)
                     .executeAndFetch(EndangeredAnimals.class);
         }
     }
