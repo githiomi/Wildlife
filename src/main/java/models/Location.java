@@ -1,5 +1,10 @@
 package models;
 
+import org.sql2o.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Location{
 
     private int id;
@@ -33,6 +38,14 @@ public class Location{
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public static List<Location> getAll() {
+        String sql = "SELECT * FROM locations;";
+        try (Connection conn = DB.sql2o.open()){
+             return conn.createQuery(sql)
+                    .executeAndFetch(Location.class);
+        }
     }
 }
 
